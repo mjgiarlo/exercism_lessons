@@ -2,6 +2,7 @@
 begin
   gem 'minitest', '>= 5.0.0'
   require 'minitest/autorun'
+  require 'minitest/pride'
   require_relative 'hello_world'
 rescue Gem::LoadError => e
   puts "\nMissing Dependency:\n#{e.backtrace.first} #{e.message}"
@@ -21,12 +22,10 @@ class HelloWorldTest < Minitest::Test
   end
 
   def test_sample_name
-    skip
     assert_equal 'Hello, Alice!', HelloWorld.hello('Alice')
   end
 
   def test_other_sample_name
-    skip
     assert_equal 'Hello, Bob!', HelloWorld.hello('Bob')
   end
 end
