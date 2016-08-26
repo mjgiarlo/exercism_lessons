@@ -7,11 +7,12 @@ class Complement
   }
 
   def self.of_dna(strand)
-    mapped = strand.chars.map do |nucleotide|
-      DNA_TO_RNA[nucleotide]
-    end
-    return '' if mapped.any?(&:nil?)
-    mapped.join
+    strand.chars.map do |nucleotide|
+      DNA_TO_RNA[nucleotide].tap do |complement|
+        # short circuit as soon as mapping fails
+        return '' if complement.nil?
+      end
+    end.join
   end
 end
 
