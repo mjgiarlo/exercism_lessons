@@ -22,7 +22,7 @@ class Fixnum
   private
 
     def romanize_remainder(value)
-      return '' if value.zero?
+      return '' unless value.positive?
       ''.tap do |romanized|
         ROMAN_MAPPING.each do |range, letter|
           next unless range.include?(value)
