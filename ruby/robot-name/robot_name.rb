@@ -1,37 +1,53 @@
 class Robot
-  @@used_names = []
-
   attr_reader :name
   def initialize
-    @name = factory_name
-    register_name!
+    @name = Name.new
+    @name.save!
   end
 
   def reset
     initialize
   end
+end
+
+class Name
+  def initialize
+    @value = unique_name
+  end
+
+  def save!
+    repository << @value
+  end
+
+  def to_str
+    @value
+  end
 
   private
 
-    def factory_name
+    def unique_name
       loop do
-        (random_letter + random_letter + random_number).tap do |name|
-          next if @@used_names.include?(name)
+        template.tap do |name|
+          next if repository.include?(name)
           return name
         end
       end
     end
 
-    def random_letter
+    def template
+      random_character + random_character + random_number_string
+    end
+
+    def random_character
       ('A'..'Z').to_a.sample
     end
 
-    def random_number
+    def random_number_string
       sprintf('%03d', rand(1000))
     end
 
-    def register_name!
-      @@used_names << name
+    def repository
+      @@name_repository ||= []
     end
 end
 
