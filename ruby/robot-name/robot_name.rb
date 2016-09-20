@@ -4,10 +4,8 @@ class Robot
     @name = Name.new
     @name.save!
   end
-
-  def reset
-    initialize
-  end
+  alias_method :reset, :initialize
+  public :reset
 end
 
 class Name
@@ -35,15 +33,15 @@ class Name
     end
 
     def template
-      random_character + random_character + random_number_string
+      random_letters + random_number_string
     end
 
-    def random_character
-      ('A'..'Z').to_a.sample
+    def random_letters
+      ('AA'..'ZZ').to_a.sample
     end
 
     def random_number_string
-      sprintf('%03d', rand(1000))
+      ('000'..'999').to_a.sample
     end
 
     def repository
