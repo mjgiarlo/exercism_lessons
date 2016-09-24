@@ -1,14 +1,19 @@
 module Prime
   class << self
-    def nth(ordinal)
-      raise ArgumentError, 'Must be >= 1' unless ordinal.to_i.positive?
+    def nth(index)
+      raise ArgumentError, 'Must be >= 1' unless index.to_i.positive?
       @primes ||= []
-      return @primes[ordinal - 1] if @primes.size >= ordinal
+      return @primes[index - 1] if @primes.size >= index
+      increment_until_found(index)
+    end
+
+    def increment_until_found(index)
       candidate = @primes.last || 1
       loop do
         candidate += 1
-        @primes << candidate if prime?(candidate)
-        return candidate if @primes.size >= ordinal
+        next unless prime?(candidate)
+        @primes << candidate
+        return candidate if @primes.size >= index
       end
     end
 
