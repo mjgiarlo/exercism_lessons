@@ -9,7 +9,7 @@ module Year
     private
 
     def divisor?(year, number)
-      year % number == 0
+      (year % number).zero?
     end
   end
 end
