@@ -7,9 +7,7 @@ module Grains
     end
 
     def total
-      TOTAL_SQUARES.downto(1).reduce(0) do |sum, square_number|
-        sum + square(square_number)
-      end
+      (1..TOTAL_SQUARES).reduce { |sum, number| sum + square(number) }
     end
   end
 end
